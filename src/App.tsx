@@ -1,9 +1,6 @@
 const App = () => {
-  return (
-    <div>
-      Learn React
-    </div>
-  );
-}
+  const a = '5';
+  return <div>{a}</div>;
+};
 
 export default App;
