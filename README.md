@@ -11,7 +11,9 @@ Live demo: https://inspiring-meninsky-ebd5cd.netlify.app/
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Home Page Screenshot](https://github.com/lvlshanks/anime-search-app/blob/master/public/screenshots/home%20page.png)
+
+![Anime Detail Page Screenshot](https://github.com/lvlshanks/anime-search-app/blob/master/public/screenshots/detail%20page.png)
 
 
 ## Tech Stack
