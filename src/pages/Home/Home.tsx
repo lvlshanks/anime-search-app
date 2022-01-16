@@ -37,7 +37,7 @@ const Home = () => {
       setQuery(searchQuery);
     }
     window.scrollTo(0, 0);
-  }, [searchParams]);
+  }, [searchParams.toString()]);
 
   useEffect(() => {
     const queryParams = { ...qs.parse(searchParams.toString()), q: debouncedQuery };
