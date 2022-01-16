@@ -1,5 +1,6 @@
 export interface AnimeCardProps {
-    title?: string;
+    id?: string;
     imageURL?: string;
     isLoading: boolean;
+    title?: string;
 }

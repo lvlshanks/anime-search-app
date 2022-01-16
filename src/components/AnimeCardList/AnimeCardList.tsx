@@ -2,9 +2,9 @@ import { Grid } from '@mui/material';
 import uniqueID from 'lodash.uniqueid';
 import { AnimeCard, NoResultsFound } from '..';
 import { ITEMS_PER_PAGE } from '../../constants';
-import { AnimeListProps } from './AnimeList.types';
+import { AnimeListProps } from './AnimeCardList.types';
 
-const AnimeList = ({
+const AnimeCardList = ({
   animeList,
   isLoading = false,
 }: AnimeListProps) => {
@@ -16,6 +16,7 @@ const AnimeList = ({
             title={anime.title}
             imageURL={anime?.images?.jpg?.image_url}
             isLoading={isLoading}
+            id={anime.mal_id}
           />
         </Grid>
       ))}
@@ -43,4 +44,4 @@ const AnimeList = ({
   return renderAnimeList();
 };
 
-export default AnimeList;
+export default AnimeCardList;

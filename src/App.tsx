@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Navigate,
   Route, Routes,
 } from 'react-router-dom';
 
@@ -16,8 +17,9 @@ const NotFound = React.lazy(
 const App = () => (
   <React.Suspense fallback={<div>Loading...</div>}>
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/detail/:animeID" element={<AnimeDetail />} />
+      <Route path="/" element={<Navigate to="/animes" />} />
+      <Route path="/animes" element={<Home />} />
+      <Route path="/animes/detail/:animeID" element={<AnimeDetail />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </React.Suspense>

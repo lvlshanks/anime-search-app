@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'react-router-dom';
 import {
-  AnimeList, SearchBar,
+  AnimeCardList, SearchBar,
 } from '../../components';
 import { ANIME_API_URL, ITEMS_PER_PAGE } from '../../constants';
 import { useDebouncedQuery, usePagination, useAPI } from '../../hooks';
@@ -23,7 +23,7 @@ const Home = () => {
     page, handlePageChange,
   } = usePagination();
   const {
-    animeList, isAPILoading, lastVisiblePage, getAnimeList,
+    animeList = [], isAPILoading = true, lastVisiblePage = 0, getAnimeList,
   } = useAPI({ baseURL: ANIME_API_URL, searchParams });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Home = () => {
       <Box display="flex" justifyContent="center" pb={4}>
         <SearchBar query={query} handleOnChange={setQuery} />
       </Box>
-      <AnimeList animeList={animeList} isLoading={isAPILoading} />
+      <AnimeCardList animeList={animeList} isLoading={isAPILoading} />
       {lastVisiblePage > 1 && (
         <Box display="flex" justifyContent="center" py={4}>
           <Pagination

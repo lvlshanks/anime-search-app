@@ -8,8 +8,9 @@ export enum APIActionKind {
 
 interface APIState {
     isAPILoading?: boolean;
-    lastVisiblePage: number;
-    animeList: Anime[];
+    lastVisiblePage?: number;
+    animeList?: Anime[];
+    anime?: Anime;
 }
 
 interface APIAction {

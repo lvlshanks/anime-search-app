@@ -6,13 +6,15 @@ import { animeListFetchReducer, APIActionKind } from '../reducers';
 interface UseAPIArgs {
     baseURL: string;
     searchParams?: URLSearchParams;
+    animeID?: string;
 }
 
-const useAPI = ({ baseURL, searchParams }: UseAPIArgs) => {
+const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
   const [state, dispatch] = useReducer(animeListFetchReducer, {
     isAPILoading: true,
     lastVisiblePage: 0,
     animeList: [],
+    anime: undefined,
   });
 
   const notifyError = () => toast.error('Something went wrong! Please try again later.', {
@@ -32,6 +34,22 @@ const useAPI = ({ baseURL, searchParams }: UseAPIArgs) => {
           lastVisiblePage: data.pagination.last_visible_page,
         },
       });
+    } catch {
+      notifyError();
+    }
+    dispatch({ type: APIActionKind.FETCH_COMPLETE });
+  };
+
+  const getAnime = async () => {
+    dispatch({ type: APIActionKind.FETCH_START });
+    try {
+      const { data } = await axios.get(`${baseURL}/${animeID}`);
+      dispatch({
+        type: APIActionKind.FETCH_SUCCESS,
+        payload: {
+          anime: data.data,
+        },
+      });
     } catch (error) {
       notifyError();
     }
@@ -40,9 +58,11 @@ const useAPI = ({ baseURL, searchParams }: UseAPIArgs) => {
 
   return {
     animeList: state.animeList,
+    anime: state.anime,
     isAPILoading: state.isAPILoading,
     lastVisiblePage: state.lastVisiblePage,
     getAnimeList,
+    getAnime,
   };
 };
 
