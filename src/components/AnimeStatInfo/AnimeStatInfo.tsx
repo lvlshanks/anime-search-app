@@ -13,7 +13,7 @@ const AnimeStatInfo = ({
       case 'score': {
         return {
           stat: anime?.score ? `${anime.score.toFixed(2)}` : 'N/A',
-          statHeading: anime?.scored_by ? `${anime.scored_by} USERS` : 'NO. OF RATINGS',
+          statHeading: anime?.scored_by ? `${anime.scored_by.toLocaleString()} USERS` : 'NO. OF RATINGS',
           colors: {
             backgroundColor: '#D6EAF8',
             borderColor: '#85C1E9',

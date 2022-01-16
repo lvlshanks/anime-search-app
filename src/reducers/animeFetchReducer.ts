@@ -18,14 +18,14 @@ interface APIAction {
     payload?: APIState;
 }
 
-const animeListFetchReducer = (state: APIState, action: APIAction): APIState => {
+const animeFetchReducer = (state: APIState, action: APIAction): APIState => {
   const { type } = action;
   switch (type) {
     case APIActionKind.FETCH_START:
       return {
         ...state,
+        ...action.payload,
         isAPILoading: true,
-        animeList: [],
       };
     case APIActionKind.FETCH_SUCCESS:
       return {
@@ -42,4 +42,4 @@ const animeListFetchReducer = (state: APIState, action: APIAction): APIState => 
   }
 };
 
-export default animeListFetchReducer;
+export default animeFetchReducer;

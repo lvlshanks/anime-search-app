@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useReducer } from 'react';
 import toast from 'react-hot-toast';
-import { animeListFetchReducer, APIActionKind } from '../reducers';
+import { animeFetchReducer, APIActionKind } from '../reducers';
 
 interface UseAPIArgs {
     baseURL: string;
@@ -10,7 +10,7 @@ interface UseAPIArgs {
 }
 
 const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
-  const [state, dispatch] = useReducer(animeListFetchReducer, {
+  const [state, dispatch] = useReducer(animeFetchReducer, {
     isAPILoading: true,
     lastVisiblePage: 0,
     animeList: [],
@@ -24,7 +24,12 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
   });
 
   const getAnimeList = async () => {
-    dispatch({ type: APIActionKind.FETCH_START });
+    dispatch({
+      type: APIActionKind.FETCH_START,
+      payload: {
+        animeList: [],
+      },
+    });
     try {
       const { data } = await axios.get(`${baseURL}?${searchParams}`);
       dispatch({

@@ -1,2 +1,2 @@
-export { default as animeListFetchReducer } from './animeListFetchReducer';
-export * from './animeListFetchReducer';
+export { default as animeFetchReducer } from './animeFetchReducer';
+export * from './animeFetchReducer';
