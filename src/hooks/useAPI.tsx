@@ -4,9 +4,9 @@ import toast from 'react-hot-toast';
 import { animeFetchReducer, APIActionKind } from '../reducers';
 
 interface UseAPIArgs {
-    baseURL: string;
-    searchParams?: URLSearchParams;
-    animeID?: string;
+  baseURL: string;
+  searchParams?: URLSearchParams;
+  animeID?: string;
 }
 
 const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
@@ -17,11 +17,12 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
     anime: undefined,
   });
 
-  const notifyError = () => toast.error('Something went wrong! Please try again later.', {
-    style: {
-      minWidth: 'fit-content',
-    },
-  });
+  const notifyError = () =>
+    toast.error('Something went wrong! Please try again later.', {
+      style: {
+        minWidth: 'fit-content',
+      },
+    });
 
   const getAnimeList = async () => {
     dispatch({

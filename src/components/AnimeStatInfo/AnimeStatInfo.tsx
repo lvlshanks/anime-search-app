@@ -1,6 +1,4 @@
-import {
-  Box, Paper, Skeleton, Typography,
-} from '@mui/material';
+import { Box, Paper, Skeleton, Typography } from '@mui/material';
 import { AnimeStatInfoProps } from './AnimeStatInfo.types';
 
 const AnimeStatInfo = ({
@@ -13,7 +11,9 @@ const AnimeStatInfo = ({
       case 'score': {
         return {
           stat: anime?.score ? `${anime.score.toFixed(2)}` : 'N/A',
-          statHeading: anime?.scored_by ? `${anime.scored_by.toLocaleString()} USERS` : 'NO. OF RATINGS',
+          statHeading: anime?.scored_by
+            ? `${anime.scored_by.toLocaleString()} USERS`
+            : 'NO. OF RATINGS',
           colors: {
             backgroundColor: '#D6EAF8',
             borderColor: '#85C1E9',
@@ -44,7 +44,9 @@ const AnimeStatInfo = ({
       }
       case 'popularity': {
         return {
-          stat: anime?.popularity ? `#${anime.popularity.toLocaleString()}` : 'N/A',
+          stat: anime?.popularity
+            ? `#${anime.popularity.toLocaleString()}`
+            : 'N/A',
           statHeading: 'POPULARITY',
           colors: {
             backgroundColor: '#FADBD8',
@@ -74,38 +76,42 @@ const AnimeStatInfo = ({
           },
         };
       }
-      default: return {
-        stat: 'N/A',
-        statHeading: 'N/A',
-        colors: {
-          backgroundColor: '#D6EAF8',
-          borderColor: '#85C1E9',
-        },
-        '& h6': {
-          color: '#1F618D',
-        },
-        '& span': {
-          color: '#3498DB',
-        },
-      };
+      default:
+        return {
+          stat: 'N/A',
+          statHeading: 'N/A',
+          colors: {
+            backgroundColor: '#D6EAF8',
+            borderColor: '#85C1E9',
+          },
+          '& h6': {
+            color: '#1F618D',
+          },
+          '& span': {
+            color: '#3498DB',
+          },
+        };
     }
   };
 
-  return (
-    isLoading ? (
-      <Skeleton variant="rectangular" width={150} height={50} />
-    ) : (
-      <Paper variant="outlined" sx={{ width: 150, ...renderStat().colors }}>
-        <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-          <Typography variant="h6" fontWeight="bold">
-            {renderStat().stat}
-          </Typography>
-          <Typography variant="caption" fontWeight="bold">
-            {renderStat().statHeading}
-          </Typography>
-        </Box>
-      </Paper>
-    )
+  return isLoading ? (
+    <Skeleton variant="rectangular" width={150} height={50} />
+  ) : (
+    <Paper variant="outlined" sx={{ width: 150, ...renderStat().colors }}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h6" fontWeight="bold">
+          {renderStat().stat}
+        </Typography>
+        <Typography variant="caption" fontWeight="bold">
+          {renderStat().statHeading}
+        </Typography>
+      </Box>
+    </Paper>
   );
 };
 
