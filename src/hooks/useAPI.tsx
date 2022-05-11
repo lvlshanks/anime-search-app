@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { CancelTokenSource } from 'axios';
 import { useReducer } from 'react';
 import toast from 'react-hot-toast';
 import { animeFetchReducer, APIActionKind } from '../reducers';
@@ -46,20 +46,28 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
     dispatch({ type: APIActionKind.FETCH_COMPLETE });
   };
 
-  const getAnime = async () => {
+  const getAnime = async (cancelTokenSource: CancelTokenSource) => {
     dispatch({ type: APIActionKind.FETCH_START });
     try {
-      const { data } = await axios.get(`${baseURL}/${animeID}`);
+      const { data } = await axios.get(`${baseURL}/${animeID}`, {
+        cancelToken: cancelTokenSource.token,
+      });
       dispatch({
         type: APIActionKind.FETCH_SUCCESS,
         payload: {
           anime: data.data,
         },
       });
+      dispatch({ type: APIActionKind.FETCH_COMPLETE });
     } catch (error) {
-      notifyError();
+      if (
+        error instanceof Error &&
+        error.message !== 'Cancelled due to stale request'
+      ) {
+        notifyError();
+        dispatch({ type: APIActionKind.FETCH_COMPLETE });
+      }
     }
-    dispatch({ type: APIActionKind.FETCH_COMPLETE });
   };
 
   return {

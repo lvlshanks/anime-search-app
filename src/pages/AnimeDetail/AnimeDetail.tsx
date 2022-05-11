@@ -1,10 +1,11 @@
-import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
-import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowBackIosNew } from '@mui/icons-material';
+import { Box, Button, Grid, Skeleton, Typography } from '@mui/material';
+import axios from 'axios';
+import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { ANIME_API_URL } from '../../constants';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AnimeStatInfo } from '../../components';
+import { ANIME_API_URL } from '../../constants';
 import { useAPI } from '../../hooks';
 
 const AnimeDetail = () => {
@@ -16,7 +17,11 @@ const AnimeDetail = () => {
   });
 
   useEffect(() => {
-    getAnime();
+    const cancelTokenSource = axios.CancelToken.source();
+    getAnime(cancelTokenSource);
+    return () => {
+      cancelTokenSource.cancel('Cancelled due to stale request');
+    };
   }, [animeID]);
 
   const renderAnimeImage = () =>
