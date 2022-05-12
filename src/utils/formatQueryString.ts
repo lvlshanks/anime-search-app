@@ -1,4 +1,4 @@
-const formatQueryString = (obj:{[key: string]: string}) => {
+const formatQueryString = (obj: { [key: string]: string }) => {
   const newObject = { ...obj };
   Object.keys(newObject).forEach((key) => {
     if (newObject[key] === '') {

@@ -1,21 +1,21 @@
 import { Anime } from '../types/anime';
 
 export enum APIActionKind {
-    FETCH_START = 'FETCH_START',
-    FETCH_SUCCESS = 'FETCH_SUCCESS',
-    FETCH_COMPLETE = 'FETCH_COMPLETE',
+  FETCH_START = 'FETCH_START',
+  FETCH_SUCCESS = 'FETCH_SUCCESS',
+  FETCH_COMPLETE = 'FETCH_COMPLETE',
 }
 
 interface APIState {
-    isAPILoading?: boolean;
-    lastVisiblePage?: number;
-    animeList?: Anime[];
-    anime?: Anime;
+  isAPILoading?: boolean;
+  lastVisiblePage?: number;
+  animeList?: Anime[];
+  anime?: Anime;
 }
 
 interface APIAction {
-    type: APIActionKind;
-    payload?: APIState;
+  type: APIActionKind;
+  payload?: APIState;
 }
 
 const animeFetchReducer = (state: APIState, action: APIAction): APIState => {

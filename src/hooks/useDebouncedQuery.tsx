@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 
 interface UseDebouncedQueryArgs {
-    query: string;
-    waitTime: number;
+  query: string;
+  waitTime: number;
 }
 
-const useDebouncedQuery = ({
-  query,
-  waitTime,
-}: UseDebouncedQueryArgs) => {
+const useDebouncedQuery = ({ query, waitTime }: UseDebouncedQueryArgs) => {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
 
   useEffect(() => {

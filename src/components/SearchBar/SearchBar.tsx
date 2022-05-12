@@ -3,16 +3,17 @@ import { InputAdornment, TextField } from '@mui/material';
 import React from 'react';
 import { SearchBarProps } from './SearchBar.types';
 
-const SearchBar = ({
-  handleOnChange,
-  query,
-}: SearchBarProps) => (
+const SearchBar = ({ handleOnChange, query }: SearchBarProps) => (
   <TextField
     sx={{ maxWidth: 1200 }}
     label="Search"
     fullWidth
     InputProps={{
-      endAdornment: <InputAdornment position="end"><SearchIcon /></InputAdornment>,
+      endAdornment: (
+        <InputAdornment position="end">
+          <SearchIcon />
+        </InputAdornment>
+      ),
       type: 'search',
     }}
     value={query}

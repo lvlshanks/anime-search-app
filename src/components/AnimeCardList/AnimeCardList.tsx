@@ -4,16 +4,13 @@ import { AnimeCard, NoResultsFound } from '..';
 import { ITEMS_PER_PAGE } from '../../constants';
 import { AnimeListProps } from './AnimeCardList.types';
 
-const AnimeCardList = ({
-  animeList,
-  isLoading = false,
-}: AnimeListProps) => {
+const AnimeCardList = ({ animeList, isLoading = false }: AnimeListProps) => {
   const renderAnimeCards = () => (
     <Grid container spacing={3} justifyContent="center">
-      {(animeList).map((anime) => (
+      {animeList.map((anime) => (
         <Grid item key={uniqueID()}>
           <AnimeCard
-            title={anime.title}
+            title={anime?.title}
             imageURL={anime?.images?.jpg?.image_url}
             isLoading={isLoading}
             id={anime.mal_id}
@@ -27,9 +24,7 @@ const AnimeCardList = ({
     <Grid container spacing={3} justifyContent="center">
       {[...new Array(ITEMS_PER_PAGE)].map(() => (
         <Grid item key={uniqueID()}>
-          <AnimeCard
-            isLoading={isLoading}
-          />
+          <AnimeCard isLoading={isLoading} />
         </Grid>
       ))}
     </Grid>
