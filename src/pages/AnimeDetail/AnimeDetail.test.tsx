@@ -8,7 +8,7 @@ beforeAll(() => mockServer.listen());
 afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
-jest.setTimeout(10000);
+jest.setTimeout(300000);
 
 it('renders mock anime detail', async () => {
   renderWithRouter(<App />, {

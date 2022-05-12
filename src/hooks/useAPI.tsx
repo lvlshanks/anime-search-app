@@ -24,7 +24,7 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
       },
     });
 
-  const getAnimeList = async () => {
+  const getAnimeList = async (cancelTokenSource: CancelTokenSource) => {
     dispatch({
       type: APIActionKind.FETCH_START,
       payload: {
@@ -32,7 +32,9 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
       },
     });
     try {
-      const { data } = await axios.get(`${baseURL}?${searchParams}`);
+      const { data } = await axios.get(`${baseURL}?${searchParams}`, {
+        cancelToken: cancelTokenSource.token,
+      });
       dispatch({
         type: APIActionKind.FETCH_SUCCESS,
         payload: {
@@ -40,10 +42,16 @@ const useAPI = ({ baseURL, searchParams, animeID }: UseAPIArgs) => {
           lastVisiblePage: data.pagination.last_visible_page,
         },
       });
-    } catch {
-      notifyError();
+      dispatch({ type: APIActionKind.FETCH_COMPLETE });
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        error.message !== 'Cancelled due to stale request'
+      ) {
+        notifyError();
+        dispatch({ type: APIActionKind.FETCH_COMPLETE });
+      }
     }
-    dispatch({ type: APIActionKind.FETCH_COMPLETE });
   };
 
   const getAnime = async (cancelTokenSource: CancelTokenSource) => {

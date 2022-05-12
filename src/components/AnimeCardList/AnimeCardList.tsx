@@ -10,7 +10,7 @@ const AnimeCardList = ({ animeList, isLoading = false }: AnimeListProps) => {
       {animeList.map((anime) => (
         <Grid item key={uniqueID()}>
           <AnimeCard
-            title={anime.title}
+            title={anime?.title}
             imageURL={anime?.images?.jpg?.image_url}
             isLoading={isLoading}
             id={anime.mal_id}

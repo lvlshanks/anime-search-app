@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { faker } from '@faker-js/faker';
 
 export const handlers = [
   rest.get('https://api.jikan.moe/v4/anime/:animeID', (req, res, ctx) => {
@@ -8,39 +9,40 @@ export const handlers = [
       ctx.json({
         data: {
           mal_id: animeID,
-          members: 2463505,
-          popularity: 8,
-          rank: 603,
-          score: 7.97,
-          scored_by: 1718762,
+          members: faker.datatype.number(),
+          popularity: faker.datatype.number(),
+          rank: faker.datatype.number(),
+          score: faker.datatype.number({ min: 0, max: 10, precision: 0.01 }),
+          scored_by: faker.datatype.number(),
           title: 'Naruto',
         },
       })
     );
   }),
   rest.get('https://api.jikan.moe/v4/anime', (req, res, ctx) => {
+    const q = req.url.searchParams.get('q');
+    const page = req.url.searchParams.get('page');
+    const limit = req.url.searchParams.get('limit');
     return res(
       ctx.status(200),
       ctx.json({
-        data: [
-          {
-            images: {
-              jpg: {
-                image_url:
-                  'https://cdn.myanimelist.net/images/anime/13/17405.jpg',
-              },
+        data: [...Array(parseInt(limit || '0', 10))].map((_, index) => ({
+          images: {
+            jpg: {
+              image_url: faker.image.imageUrl(),
             },
-            mal_id: 20,
-            members: 2463505,
-            popularity: 8,
-            rank: 603,
-            score: 7.97,
-            scored_by: 1718762,
-            title: 'Naruto',
           },
-        ],
+          mal_id: index + 20,
+          members: faker.datatype.number(),
+          popularity: faker.datatype.number(),
+          rank: faker.datatype.number(),
+          score: faker.datatype.number({ min: 0, max: 10, precision: 0.01 }),
+          scored_by: faker.datatype.number(),
+          title: q || `Naruto-${page}`,
+        })),
         pagination: {
-          items: { count: 1 },
+          last_visible_page: faker.datatype.number({ min: 2 }),
+          items: { count: parseInt(limit || '0', 10) },
         },
       })
     );
